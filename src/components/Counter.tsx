@@ -40,7 +40,6 @@ function Number({ mv, number }: { mv: MotionValue; number: number }) {
   const y = useTransform(mv, (latest) => {
     const placeValue = latest % 10;
     const offset = (10 + number - placeValue) % 10;
-
     let memo = offset * height;
 
     if (offset > 5) {
