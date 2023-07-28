@@ -2,7 +2,6 @@ import { useState } from "react";
 import Counter from "./components/Counter";
 import { Input } from "./components/ui/input";
 import { Label } from "./components/ui/label";
-import { Switch } from "./components/ui/switch";
 
 function App() {
   const [distance, setDistance] = useState<number>(0);
