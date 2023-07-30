@@ -4,27 +4,29 @@ import { Input } from "./components/ui/input";
 import { Label } from "./components/ui/label";
 
 function App() {
-  const [distance, setDistance] = useState<number>(0);
-  const [people, setPeople] = useState(0);
-  const [economy, setEconomy] = useState(0);
-  const [price, setPrice] = useState(0);
+  const [distance, setDistance] = useState("");
+  const [people, setPeople] = useState("");
+  const [economy, setEconomy] = useState("");
+  const [price, setPrice] = useState("");
   const onPeopleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPeople(parseFloat(e.target.value) || 0);
+    setPeople(e.target.value);
   };
   const onDistanceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDistance(parseFloat(e.target.value));
+    setDistance(e.target.value);
   };
   const onEconomyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEconomy(parseFloat(e.target.value));
+    setEconomy(e.target.value);
   };
   const onPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPrice(parseFloat(e.target.value));
+    setPrice(e.target.value);
   };
   const calculate = () => {
-    const econPerKm = economy / 100;
-    const gasUsed = econPerKm * distance;
-    const gasPrice = gasUsed * price;
-    const final = gasPrice / people;
+    const econPerKm = parseFloat(economy) / 100;
+    const gasUsed = econPerKm * parseFloat(distance);
+    const gasPrice = gasUsed * parseFloat(price);
+    const final = gasPrice / parseInt(people);
+    console.log(final);
+
     return final;
   };
   const calculation = calculate();
@@ -41,6 +43,7 @@ function App() {
           value={distance}
           type="number"
           step="0.1"
+          inputMode="decimal"
           onChange={(e) => onDistanceChange(e)}
         />
       </div>
