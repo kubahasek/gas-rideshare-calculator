@@ -20,19 +20,16 @@ function App() {
   const onPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPrice(e.target.value);
   };
-  const calculate = () => {
-    const econPerKm = parseFloat(economy) / 100;
-    const gasUsed = econPerKm * parseFloat(distance);
-    const gasPrice = gasUsed * parseFloat(price);
-    const final = gasPrice / parseInt(people);
-    console.log(final);
+  const econPerKm = parseFloat(economy.replace(",", ".")) / 100;
+  const gasUsed = econPerKm * parseFloat(distance.replace(",", "."));
+  const gasPrice = gasUsed * parseFloat(price.replace(",", "."));
+  const calculation = gasPrice / parseInt(people.replace(",", "."));
 
-    return final;
-  };
-  const calculation = calculate();
   return (
-    <div className="dark bg-slate-700 min-h-screen text-white flex items-center justify-center flex-col gap-4">
-      <Counter value={calculation || 0} />
+    <div className="dark bg-slate-700 min-h-screen text-white flex items-center justify-start lg:justify-center flex-col gap-4">
+      <div className="mt-4">
+        <Counter value={calculation || 0} />
+      </div>
       <div className="flex flex-col gap-2 text-white">
         <Label htmlFor="distance" className="ml-2">
           Distance
@@ -41,7 +38,7 @@ function App() {
           className="w-48 bg-gray-800 border-gray-600 text-white"
           id="distance"
           value={distance}
-          type="number"
+          type="text"
           step="0.1"
           inputMode="decimal"
           onChange={(e) => onDistanceChange(e)}
@@ -55,8 +52,9 @@ function App() {
           className="w-48 bg-gray-800 border-gray-600 text-white"
           id="people"
           value={people}
-          type="number"
+          type="text"
           step="1"
+          inputMode="numeric"
           onChange={(e) => onPeopleChange(e)}
         />
       </div>
@@ -68,8 +66,9 @@ function App() {
           className="w-48 bg-gray-800 border-gray-600 text-white"
           id="economy"
           value={economy}
-          type="number"
-          step={!Number.isNaN(Number("0.1")) ? Number("0.1") : 1}
+          type="text"
+          step="0.01"
+          inputMode="decimal"
           onChange={(e) => onEconomyChange(e)}
         />
       </div>
@@ -81,8 +80,9 @@ function App() {
           className="w-48 bg-gray-800 border-gray-600 text-white"
           id="price"
           value={price}
-          type="number"
+          type="text"
           step="0.01"
+          inputMode="decimal"
           onChange={(e) => onPriceChange(e)}
         />
       </div>
